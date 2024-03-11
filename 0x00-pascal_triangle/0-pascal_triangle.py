@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
+"""
+0-pascal_triangle.py
 
+"""
 def pascal_triangle(n):
+    """ 
+    Implements a pascal triangle of size n
+    """
     triangle = []
     for i in range(n):
         t = []
