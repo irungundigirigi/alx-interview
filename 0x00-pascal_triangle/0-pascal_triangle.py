@@ -10,6 +10,8 @@ def pascal_triangle(n):
     Implements a pascal triangle of size n
     """
     triangle = []
+    if n <= 0:
+        return triangle
     for i in range(n):
         t = []
         for j in range(i+1):
