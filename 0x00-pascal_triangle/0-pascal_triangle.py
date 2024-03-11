@@ -9,6 +9,9 @@ def pascal_triangle(n):
     """
     triangle = []
     for i in range(n):
+        if n <= 0:
+            return triangle
+        else:
         t = []
         for j in range(i+1):
             if j == 0 or j == i:
