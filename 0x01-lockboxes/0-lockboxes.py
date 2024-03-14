@@ -1,27 +1,16 @@
 #!/usr/bin/python3
-
+"""
+   file:  0-lockboxes.py
+"""
 def canUnlockAll(boxes):
-    """
-    Determines if all the boxes can be unlocked.
+    """ Method that determines if all boxes can be opened """
+    for key in range(1, len(boxes)):
+        flag = False
+        for box in range(len(boxes)):
+            if key in boxes[box] and box != key:
+                flag = True
+                break
+        if not flag:
+            return False
 
-    Args:
-    - boxes: A list of lists representing the locked boxes and their keys.
-
-    Returns:
-    - True if all boxes can be opened, False otherwise.
-    """
-    if len(boxes) == 0:
-        return False
-
-    visited = [False] * len(boxes)
-    visited[0] = True
-    queue = [0]
-
-    while queue:
-        current_box = queue.pop(0)
-        for key in boxes[current_box]:
-            if key < len(boxes) and not visited[key]:
-                visited[key] = True
-                queue.append(key)
-
-    return all(visited)
+    return True
