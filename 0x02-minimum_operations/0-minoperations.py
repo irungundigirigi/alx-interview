@@ -1,36 +1,60 @@
 #!/usr/bin/python3
-'''The minimum operations coding challenge.
-'''
+'''Minimum Operations python3 challenge'''
 
 
-def min_operations(target_chars):
-    '''Computes the fewest number of operations needed to result
-    in exactly target_chars H characters.
+def minOperations(n):
+    '''calculates the fewest number of
+    operations needed to result in exactly n H
+    characters in this file.
+    Returns:
+        Integer : if n is impossible to achieve, return 0
     '''
-    if not isinstance(target_chars, int):
-        return 0
-    operations_count = 0
-    clipboard = 0
-    done = 1
-    # print('H', end='')
-    while done < target_chars:
-        if clipboard == 0:
-            # init (the first copy all and paste)
-            clipboard = done
-            done += clipboard
-            operations_count += 2
-            # print('-(11)->{}'.format('H' * done), end='')
-        elif target_chars - done > 0 and (target_chars - done) % done == 0:
-            # copy all and paste
-            clipboard = done
-            done += clipboard
-            operations_count += 2
-            # print('-(11)->{}'.format('H' * done), end='')
-        elif clipboard > 0:
-            # paste
-            done += clipboard
-            operations_count += 1
-            # print('-(01)->{}'.format('H' * done), end='')
-    # print('')
-    return operations_count
+    pasted_chars = 1  # how many chars in the file
+    clipboard = 0  # how many H's copied
+    counter = 0  # operations counter
 
+    while pasted_chars < n:
+        # if did not copy anything yet
+        if clipboard == 0:
+            # copyall
+            clipboard = pasted_chars
+            # increment operations counter
+            counter += 1
+
+        # if haven't pasted anything yet
+        if pasted_chars == 1:
+            # paste
+            pasted_chars += clipboard
+            # increment operations counter
+            counter += 1
+            # continue to next loop
+            continue
+
+        remaining = n - pasted_chars  # remaining chars to Paste
+        # check if impossible by checking if clipboard
+        # has more than needed to reach the number desired
+        # which also means num of chars in file is equal
+        # or more than in the clipboard.
+        # in both situations it's impossible to achieve n of chars
+        if remaining < clipboard:
+            return 0
+
+        # if can't be devided
+        if remaining % pasted_chars != 0:
+            # paste current clipboard
+            pasted_chars += clipboard
+            # increment operations counter
+            counter += 1
+        else:
+            # copyall
+            clipboard = pasted_chars
+            # paste
+            pasted_chars += clipboard
+            # increment operations counter
+            counter += 2
+
+    # if got the desired result
+    if pasted_chars == n:
+        return counter
+    else:
+        return 0
