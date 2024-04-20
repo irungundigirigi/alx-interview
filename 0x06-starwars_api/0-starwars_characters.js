@@ -18,6 +18,7 @@ const requestCharactersURLs = async () => {
     }
   }));
 };
+
 const getCharacterNames = async () => {
     if (movie_characters_urls.length > 0) {
       for (const url of movie_characters_urls) {
@@ -35,7 +36,18 @@ const getCharacterNames = async () => {
       console.error('Error: Could not get character names.');
     }
   };
-  
-requestCharactersURLs()
-getCharacterNames()
-console.log(character_names)
+
+const writeNames = async () => {
+    await requestCharactersURLs();
+    await getCharacterNames();
+
+    for (const n of character_names) {
+        if (n === character_names[character_names.length - 1]) {
+        process.stdout.write(n);
+        } else {
+        process.stdout.write(n + '\n');
+        }
+    }
+};
+
+writeNames();
