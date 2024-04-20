@@ -17,4 +17,4 @@ const requestCharacters = async () => {
     }
   }));
 };
-console.log(people);
+console.log(movie_characters);
